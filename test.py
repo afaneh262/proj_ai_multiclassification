@@ -7,6 +7,9 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.metrics import accuracy_score
 from neural_network import NeuralNetwork
 
+def on_progress_cal(output):
+    print(f'Epoch {output}')
+    
 # Load the dataset from a CSV file
 file_path = 'datasets/IRIS.csv'
 dataset = pd.read_csv(file_path)
@@ -35,7 +38,8 @@ nn = NeuralNetwork(
     output_function='Softmax',
     epochs=10,
     learning_rate=0.01,
-    goal=0.99
+    goal=0.99,
+    progress_cal=on_progress_cal
 )
 nn.train(X_train, y_train)
 

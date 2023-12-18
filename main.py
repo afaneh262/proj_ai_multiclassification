@@ -44,7 +44,6 @@ def create_layout():
 
     return layout
 
-
 def start_training(file_browse, neurons, learning_rate, max_epochs, hidden_activation_function,
                    output_activation_function, goal, window):
     dataset = pd.read_csv(file_browse)
@@ -57,6 +56,9 @@ def start_training(file_browse, neurons, learning_rate, max_epochs, hidden_activ
     # Split the dataset into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X, y_encoded, test_size=0.2, random_state=42)
 
+    def on_progress_cal(output):
+        window['progress_bar'].update_bar(output)
+    
     # Initialize and train the neural network
     nn = NeuralNetwork(
         hidden_size=int(neurons),
@@ -64,7 +66,8 @@ def start_training(file_browse, neurons, learning_rate, max_epochs, hidden_activ
         output_function=output_activation_function,
         epochs=int(max_epochs),
         learning_rate=float(learning_rate),
-        goal=float(goal)/100
+        goal=float(goal)/100,
+        progress_cal=on_progress_cal
     )
     nn.train(X_train, y_train)
 
@@ -86,6 +89,7 @@ def main():
             break
 
         if event == 'Train':
+            window['progress_bar'].update_bar(0)
             start_training(
                 values['file_browse'],
                 values['neurons'],

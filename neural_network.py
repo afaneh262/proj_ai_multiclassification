@@ -55,7 +55,7 @@ def linear_derivative(x):
 
 class NeuralNetwork:
     def __init__(self, hidden_size, activation_function='Sigmoid', output_function='Softmax', epochs=100,
-                 learning_rate=0.01, goal=None):
+                 learning_rate=0.01, goal=None, progress_cal=None):
         self.predictions = None
         self.hidden_output = None
         self.output_input = None
@@ -72,6 +72,7 @@ class NeuralNetwork:
         self.epochs = epochs
         self.learning_rate = learning_rate
         self.goal = goal
+        self.progress_cal = progress_cal
 
     def cal_function_output(self, function_name, hidden_input):
         if function_name == 'Sigmoid':
@@ -179,7 +180,8 @@ class NeuralNetwork:
             loss = self.backward(X, y_one_hot, self.learning_rate)
 
             # Print Epoch
-            print(f'Epoch {epoch}')
+            if(self.progress_cal):
+                self.progress_cal(epoch+1)
 
             # Check goal accuracy
             if self.goal is not None:
