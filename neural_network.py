@@ -80,15 +80,15 @@ class NeuralNetwork:
         elif function_name == 'Tanh':
             return tanh(hidden_input)
         elif function_name == 'ReLU':
-            return relu(self.output_input)
+            return relu(hidden_input)
         elif function_name == 'Leaky ReLU':
-            return leaky_relu(self.output_input)
+            return leaky_relu(hidden_input)
         elif function_name == 'ELU':
-            return elu(self.output_input)
+            return elu(hidden_input)
         elif function_name == 'Softmax':
-            return softmax(self.output_input)
+            return softmax(hidden_input)
         elif function_name == 'Linear':
-            return linear(self.output_input)
+            return linear(hidden_input)
         else:
             raise ValueError("Invalid activation function")
     

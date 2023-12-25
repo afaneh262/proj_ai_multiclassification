@@ -61,7 +61,7 @@ def start_training(file_browse, neurons, learning_rate, max_epochs, hidden_activ
     X_train, X_test, y_train, y_test = train_test_split(X, y_encoded, test_size=0.2, random_state=42)
 
     def on_progress_cal(output):
-        window['progress_bar'].update_bar(output)
+        window['progress_bar'].update_bar((output/int(max_epochs)) * 100)
     
     # Initialize and train the neural network
     nn = NeuralNetwork(
